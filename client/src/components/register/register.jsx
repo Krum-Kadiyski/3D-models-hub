@@ -1,4 +1,5 @@
-import { Avatar, Button, TextField, Link, Grid, Box, Typography, Container } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Avatar, Button, TextField, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const Register = () => {
@@ -79,9 +80,7 @@ const Register = () => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link>
+              <Link to="/login">Already have an account? Sign in</Link>
             </Grid>
           </Grid>
         </Box>
