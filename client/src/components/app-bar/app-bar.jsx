@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { AppBar as MuiAppBar, Box, Toolbar, IconButton } from '@mui/material';
 import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material';
-import Search from './Search';
-import Menu from './Menu';
-import Logo from './Logo';
+import Search from './search';
+import Menu from './menu';
+import Logo from './logo';
 
 const AppBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);

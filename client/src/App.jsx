@@ -1,17 +1,19 @@
 import CardActionArea from './components/card/CardActionArea';
-import { AppBar } from './components/AppBar';
+import { AppBar } from './components/app-bar';
 import SignUp from './components/SignUp/SignUp';
-import SignIn from './components/SignIn/SignIn';
+import SignIn from './components/login/login';
 import Dashboard from './components/Dashboard/Dashboard';
-import Viewer from './components/3D-Viewer/Viewer';
+import Viewer from './components/model-viewer/model-viewer';
+import { CssBaseline } from '@mui/material';
 
 const App = () => (
   <>
+    <CssBaseline />
     <AppBar />
-    {/* <SignUp /> */}
-    {/* <SignIn /> */}
+    <SignUp />
+    <SignIn />
     {/* <Dashboard /> */}
-    <Viewer />
+    {/* <Viewer /> */}
   </>
 );
 
