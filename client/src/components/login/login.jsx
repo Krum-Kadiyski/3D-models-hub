@@ -55,13 +55,12 @@ const Login = () => {
           <Grid container>
             <Grid item>
               <Link href="#" variant="body2">
-                Don't have an account? Sign Up
+                {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 };
