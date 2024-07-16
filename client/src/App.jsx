@@ -1,10 +1,15 @@
+import { SnackbarProvider } from 'notistack';
 import { CssBaseline } from '@mui/material';
 import Router from './router';
+import AppBar from './components/app-bar/app-bar';
 
 const App = () => (
   <>
     <CssBaseline />
-    <Router />
+    <SnackbarProvider>
+      <AppBar />
+      <Router />
+    </SnackbarProvider>
   </>
 );
 

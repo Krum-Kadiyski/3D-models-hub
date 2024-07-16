@@ -1,15 +1,38 @@
 import { Link } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { restService } from '../../helpers';
 
 const Register = () => {
-  const handleSubmit = (event) => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+    const email = data.get('email');
+    const username = data.get('username');
+    const password = data.get('password');
+    const repeatPassword = data.get('repeatPassword');
+
+    if (password !== repeatPassword) {
+      enqueueSnackbar("Passwords don't match", {
+        variant: 'warning',
+      });
+
+      return;
+    }
+
+    const result = await restService.post('/users/register', {
+      email,
+      password,
+      username,
     });
+
+    if (result) {
+      localStorage.setItem('token', result.accessToken);
+    }
   };
 
   return (

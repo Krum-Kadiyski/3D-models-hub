@@ -1,15 +1,21 @@
 import { Link } from 'react-router-dom';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { restService } from '../../helpers';
 
 const Login = () => {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    const result = await restService.post('/users/login', {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    if (result) {
+      localStorage.setItem('token', result.accessToken);
+    }
   };
 
   return (
