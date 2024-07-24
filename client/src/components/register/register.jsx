@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { restService } from '../../helpers';
+import { restService, setToken } from '../../helpers';
 
 const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +32,8 @@ const Register = () => {
     });
 
     if (result) {
-      localStorage.setItem('token', result.accessToken);
+      setToken(result.accessToken);
+      navigate('/');
     }
   };
 

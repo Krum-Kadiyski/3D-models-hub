@@ -1,32 +1,28 @@
+import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
 
-export const restService = {
-  get: (url) => fetch(`http://localhost:3030${url}`),
-  post: async (url, data) => {
-    try {
-      const response = await fetch(`http://localhost:3030${url}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:3030',
+});
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        enqueueSnackbar(result.message, {
-          variant: 'error',
-        });
-
-        return null;
-      }
-
-      return result;
-    } catch (error) {
-      enqueueSnackbar(error.message, {
-        variant: 'error',
-      });
-    }
-  },
+const addContentTypeInterceptor = (config) => {
+  config.headers['Content-Type'] = 'application/json';
+  return config;
 };
+
+// const addAtorizationInterceptor = (config) => {};
+
+const handleApiReject = ({ response }) => {
+  const { data } = response;
+
+  enqueueSnackbar(data.message, {
+    variant: 'error',
+  });
+
+  return null;
+};
+
+axiosInstance.interceptors.request.use(addContentTypeInterceptor);
+axiosInstance.interceptors.response.use(null, handleApiReject);
+
+export default axiosInstance;
