@@ -2,21 +2,28 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { restService, setToken } from '../../helpers';
+import { useUser } from '../../hooks/use-user';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
 
-    const result = await restService.post('/users/login', {
-      email: data.get('email'),
-      password: data.get('password'),
+    const { data, error } = await restService.post('/users/login', {
+      email: formData.get('email'),
+      password: formData.get('password'),
     });
 
-    if (result) {
-      setToken(result.accessToken);
+    if (!error) {
+      setToken(data.accessToken);
+      setUser({
+        username: data.username,
+        token: data.accessToken,
+      });
+
       navigate('/');
     }
   };
@@ -35,7 +42,7 @@ const Login = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Login
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField

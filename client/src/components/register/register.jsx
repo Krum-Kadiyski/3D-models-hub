@@ -10,12 +10,12 @@ const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
 
-    const email = data.get('email');
-    const username = data.get('username');
-    const password = data.get('password');
-    const repeatPassword = data.get('repeatPassword');
+    const email = formData.get('email');
+    const username = formData.get('username');
+    const password = formData.get('password');
+    const repeatPassword = formData.get('repeatPassword');
 
     if (password !== repeatPassword) {
       enqueueSnackbar("Passwords don't match", {
@@ -25,14 +25,14 @@ const Register = () => {
       return;
     }
 
-    const result = await restService.post('/users/register', {
+    const { data, error } = await restService.post('/users/register', {
       email,
       password,
       username,
     });
 
-    if (result) {
-      setToken(result.accessToken);
+    if (!error) {
+      setToken(data.accessToken);
       navigate('/');
     }
   };
@@ -51,7 +51,7 @@ const Register = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Register
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -66,7 +66,6 @@ const Register = () => {
                 autoFocus
               />
             </Grid>
-
             <Grid item xs={12}>
               <TextField
                 required

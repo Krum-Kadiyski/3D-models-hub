@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
+import { getToken } from './token';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3030',
@@ -10,19 +11,31 @@ const addContentTypeInterceptor = (config) => {
   return config;
 };
 
-// const addAtorizationInterceptor = (config) => {};
+const addAuthorizationInterceptor = (config) => {
+  const token = getToken();
+
+  if (token) {
+    config.headers['X-Authorization'] = token;
+  }
+
+  return config;
+};
 
 const handleApiReject = ({ response }) => {
   const { data } = response;
+  const { code, message } = data;
 
-  enqueueSnackbar(data.message, {
+  enqueueSnackbar(message, {
     variant: 'error',
   });
 
-  return null;
+  return {
+    error: { code, message },
+  };
 };
 
 axiosInstance.interceptors.request.use(addContentTypeInterceptor);
+axiosInstance.interceptors.request.use(addAuthorizationInterceptor);
 axiosInstance.interceptors.response.use(null, handleApiReject);
 
 export default axiosInstance;

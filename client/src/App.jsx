@@ -1,16 +1,15 @@
 import { SnackbarProvider } from 'notistack';
 import { CssBaseline } from '@mui/material';
 import Router from './router';
-import AppBar from './components/app-bar/app-bar';
+import { UserProvider } from './contexts/user';
 
 const App = () => (
-  <>
-    <CssBaseline />
+  <UserProvider>
     <SnackbarProvider>
-      <AppBar />
+      <CssBaseline />
       <Router />
     </SnackbarProvider>
-  </>
+  </UserProvider>
 );
 
 export default App;
