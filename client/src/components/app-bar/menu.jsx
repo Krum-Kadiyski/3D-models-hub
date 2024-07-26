@@ -1,5 +1,5 @@
 import { Menu as MuiMenu, MenuItem } from '@mui/material';
-import { clearToken, restService } from '../../helpers';
+import {  restService } from '../../helpers';
 import { useUser } from '../../hooks/use-user';
 
 const Menu = ({ anchorEl, onClose }) => {
@@ -11,7 +11,6 @@ const Menu = ({ anchorEl, onClose }) => {
 
     if (!error) {
       clearUser();
-      clearToken();
       onClose();
     }
   };
