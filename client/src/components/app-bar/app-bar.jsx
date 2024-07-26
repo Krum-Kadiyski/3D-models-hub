@@ -9,10 +9,8 @@ import LoggedOut from './logged-out';
 import { useUser } from '../../hooks/use-user';
 
 const AppBar = () => {
+  const { isLoggedIn } = useUser();
   const [anchorEl, setAnchorEl] = useState(null);
-  const { user } = useUser();
-
-  const isLoggedIn = Boolean(user.token);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);

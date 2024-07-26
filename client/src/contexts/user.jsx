@@ -1,18 +1,35 @@
 import { createContext, useCallback, useMemo, useState } from 'react';
+import { clearToken, setToken } from '../helpers';
 
-const initialState = {
-  token: null,
+const initialUserState = {
   username: '',
+  email: '',
 };
 
 export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(initialState);
+  const [user, setUser] = useState(initialUserState);
+  const [isLoggedin, setIsLoggedIn] = useState(false);
 
-  const clearUser = useCallback(() => setUser(initialState), []);
+  const setUserWithToken = useCallback((user) => {
+    const { accessToken, ...userData } = user;
 
-  const contextValue = useMemo(() => ({ user, setUser, clearUser }), [user, setUser, clearUser]);
+    setIsLoggedIn(true);
+    setUser(userData);
+    setToken(accessToken);
+  }, []);
+
+  const clearUser = useCallback(() => {
+    setIsLoggedIn(false);
+    setUser(initialUserState);
+    clearToken();
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({ isLoggedin, user, clearUser, setUser: setUserWithToken }),
+    [isLoggedin, user, setUserWithToken, clearUser]
+  );
 
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;
 };

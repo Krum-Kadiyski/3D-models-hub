@@ -2,12 +2,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { restService, setToken } from '../../helpers';
+import { useUser } from '../../hooks/use-user';
+import { restService } from '../../helpers';
 
 const Register = () => {
-  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
+  const { enqueueSnackbar } = useSnackbar();
+  const { setUser } = useUser();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -32,7 +33,8 @@ const Register = () => {
     });
 
     if (!error) {
-      setToken(data.accessToken);
+      setUser(data);
+
       navigate('/');
     }
   };

@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { restService, setToken } from '../../helpers';
 import { useUser } from '../../hooks/use-user';
+import { restService } from '../../helpers';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,11 +18,7 @@ const Login = () => {
     });
 
     if (!error) {
-      setToken(data.accessToken);
-      setUser({
-        username: data.username,
-        token: data.accessToken,
-      });
+      setUser(data);
 
       navigate('/');
     }

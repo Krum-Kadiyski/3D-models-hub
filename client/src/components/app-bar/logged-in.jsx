@@ -4,6 +4,7 @@ import { useUser } from '../../hooks/use-user';
 
 const LoggedIn = ({ onMenuOpen }) => {
   const { user } = useUser();
+
   return (
     <Box sx={{ display: 'flex' }}>
       <Typography>{user.username}</Typography>
