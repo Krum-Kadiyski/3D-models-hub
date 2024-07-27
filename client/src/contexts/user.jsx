@@ -10,7 +10,7 @@ export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(initialUserState);
-  const [isLoggedin, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const setUserWithToken = useCallback((user) => {
     const { accessToken, ...userData } = user;
@@ -27,8 +27,8 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const contextValue = useMemo(
-    () => ({ isLoggedin, user, clearUser, setUser: setUserWithToken }),
-    [isLoggedin, user, setUserWithToken, clearUser]
+    () => ({ isLoggedIn, user, clearUser, setUser: setUserWithToken }),
+    [isLoggedIn, user, setUserWithToken, clearUser]
   );
 
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;

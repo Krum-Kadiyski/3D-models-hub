@@ -6,6 +6,7 @@ const HomePage = lazy(() => import('./pages/home'));
 const LoginPage = lazy(() => import('./pages/login'));
 const RegisterPage = lazy(() => import('./pages/register'));
 const NotFound = lazy(() => import('./pages/not-found'));
+const CreateModelPage = lazy(() => import('./pages/create-model'));
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <RegisterPage />,
+      },
+      {
+        path: '/create-model',
+        element: <CreateModelPage />,
       },
       {
         path: '*',
