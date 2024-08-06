@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
-import { SnackbarProvider } from 'notistack';
-import { CssBaseline } from '@mui/material';
-import Router from './router';
-import { useUser } from './hooks/use-user';
-import { clearToken, getToken, restService } from './helpers';
+import { useEffect } from "react";
+import { SnackbarProvider } from "notistack";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import Routes from "./routes";
+import { useUser } from "./hooks";
+import { clearToken, getToken, restService } from "./helpers";
+import { theme } from "./theme";
 
 const App = () => {
   const { setUser } = useUser();
@@ -11,8 +12,8 @@ const App = () => {
   useEffect(() => {
     const accessToken = getToken();
 
-    const getCurrentUser = async () => {
-      const { data, error } = await restService.get('/users/me');
+    const fetchCurrentUser = async () => {
+      const { data, error } = await restService.get("/users/me");
 
       if (!error) {
         setUser({ accessToken, ...data });
@@ -22,15 +23,17 @@ const App = () => {
     };
 
     if (accessToken) {
-      getCurrentUser();
+      fetchCurrentUser();
     }
   }, [setUser]);
 
   return (
-    <SnackbarProvider>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router />
-    </SnackbarProvider>
+      <SnackbarProvider>
+        <Routes />
+      </SnackbarProvider>
+    </ThemeProvider>
   );
 };
 
