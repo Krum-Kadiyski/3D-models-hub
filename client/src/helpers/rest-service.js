@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { enqueueSnackbar } from 'notistack';
-import { getToken } from './token';
+import axios from "axios";
+import { enqueueSnackbar } from "notistack";
+import { getToken } from "./token";
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3030',
+  baseURL: "http://localhost:3030",
 });
 
 const addContentTypeInterceptor = (config) => {
-  config.headers['Content-Type'] = 'application/json';
+  config.headers["Content-Type"] = "application/json";
   return config;
 };
 
@@ -15,7 +15,7 @@ const addAuthorizationInterceptor = (config) => {
   const token = getToken();
 
   if (token) {
-    config.headers['X-Authorization'] = token;
+    config.headers["X-Authorization"] = token;
   }
 
   return config;
@@ -26,7 +26,7 @@ const handleApiReject = ({ response }) => {
   const { code, message } = data;
 
   enqueueSnackbar(message, {
-    variant: 'error',
+    variant: "error",
   });
 
   return {
