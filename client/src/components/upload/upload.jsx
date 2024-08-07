@@ -1,33 +1,33 @@
-import { useId, useMemo } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { FormLabel, FormHelperText, Box, Typography } from '@mui/material';
+import { useId, useMemo } from "react";
+import { useDropzone } from "react-dropzone";
+import { FormLabel, FormHelperText, Box, Typography } from "@mui/material";
 
 const baseStyle = {
-  display: 'flex',
-  flexDirection: 'column',
+  display: "flex",
+  flexDirection: "column",
   flex: 1,
-  alignItems: 'center',
+  alignItems: "center",
   padding: 20,
   borderRadius: 2,
   borderWidth: 2,
-  borderStyle: 'dashed',
-  borderColor: '#eee',
-  color: '#bdbdbd',
-  outline: 'none',
-  transition: 'border 240ms ease-in-out',
+  borderStyle: "dashed",
+  borderColor: "#eee",
+  color: "#bdbdbd",
+  outline: "none",
+  transition: "border 240ms ease-in-out",
 };
 
 const focusedStyle = {
-  backgroundColor: '#2196f3',
-  color: 'white',
+  backgroundColor: "#2196f3",
+  color: "white",
 };
 
 const acceptStyle = {
-  backgroundColor: '#f1f8e9',
+  backgroundColor: "#f1f8e9",
 };
 
 const rejectStyle = {
-  backgroundColor: 'tomato',
+  backgroundColor: "tomato",
 };
 
 const Upload = ({ label, description, helperText, accept, onAccept }) => {
@@ -44,7 +44,6 @@ const Upload = ({ label, description, helperText, accept, onAccept }) => {
     maxFiles: 1,
     onDropAccepted: onAccept,
   });
-
 
   const style = useMemo(
     () => ({
