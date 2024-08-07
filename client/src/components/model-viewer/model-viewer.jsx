@@ -1,14 +1,18 @@
-import { StlViewer } from 'react-stl-viewer';
-
-const url = 'https://storage.googleapis.com/ucloud-v3/ccab50f18fb14c91ccca300a.stl';
+import { StlViewer } from "react-stl-viewer";
 
 const style = {
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
+  width: "100%",
+  height: "100%",
 };
 
-const ModelViewer = () => <StlViewer style={style} orbitControls shadows url={url} />;
+const ModelViewer = ({ url }) => (
+  <StlViewer
+    orbitControls
+    shadows
+    url={url}
+    style={style}
+    modelProps={{ scale: 1.5 }}
+  />
+);
 
 export default ModelViewer;
