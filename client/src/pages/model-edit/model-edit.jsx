@@ -11,6 +11,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { useUser } from "../../hooks";
 import { restService } from "../../helpers";
+import { Spinner } from "../../components/spinner";
 
 const EditModelPage = () => {
   const navigate = useNavigate();
@@ -81,7 +82,7 @@ const EditModelPage = () => {
   }, [modelId, user._id, navigate]);
 
   if (isFetching) {
-    return "Loading...";
+    return <Spinner />;
   }
 
   return (

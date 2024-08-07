@@ -1,9 +1,10 @@
-import { useEffect, useState, useMemo } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
-import { Box, Pagination, Paper, Typography, useTheme } from "@mui/material";
-import { ModelList } from "../../components/model-list";
-import { useUser } from "../../hooks";
-import { formatQueryParams, restService } from "../../helpers";
+import { useEffect, useState, useMemo } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { Box, Pagination, Paper, Typography, useTheme } from '@mui/material';
+import { ModelList } from '../../components/model-list';
+import { useUser } from '../../hooks';
+import { formatQueryParams, restService } from '../../helpers';
+import { Spinner } from '../../components/spinner';
 
 const pageSize = 8;
 
@@ -16,11 +17,11 @@ const ProfilePage = () => {
   const [userModels, setUserModels] = useState([]);
   const [totalModels, setTotalModels] = useState(0);
 
-  const page = Number(searchParams.get("page")) || 1;
+  const page = Number(searchParams.get('page')) || 1;
   const pages = useMemo(() => Math.ceil(totalModels / pageSize), [totalModels]);
 
   const handlePageChange = (_event, newPage) => {
-    searchParams.set("page", newPage);
+    searchParams.set('page', newPage);
 
     setSearchParams(searchParams);
   };
@@ -46,7 +47,7 @@ const ProfilePage = () => {
       const params = new URLSearchParams({
         pageSize,
         where: `_ownerId="${userProfile._id}"`,
-        sortBy: "_createdOn desc",
+        sortBy: '_createdOn desc',
         offset: (page - 1) * pageSize,
       });
 
@@ -85,7 +86,7 @@ const ProfilePage = () => {
   }, [userProfile?._id]);
 
   if (!userProfile) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
@@ -95,7 +96,7 @@ const ProfilePage = () => {
         sx={{
           mb: 2,
           p: 2,
-          color: "white",
+          color: 'white',
           bgcolor: theme.palette.secondary.main,
         }}
       >
