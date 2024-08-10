@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
-import { Statistic } from "../../components/statistic";
-import { ModelList } from "../../components/model-list";
-import { useUser, useModels } from "../../hooks";
-import { formatQueryParams, restService } from "../../helpers";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
+import { Statistic } from '../../components/statistic';
+import { ModelList } from '../../components/model-list';
+import { useUser, useModels } from '../../hooks';
+import { formatQueryParams, restService } from '../../helpers';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -17,18 +17,18 @@ const HomePage = () => {
   const { models } = useModels(
     {
       pageSize: 4,
-      sort: "_createdOn desc",
+      sortBy: '_createdOn desc',
     },
     { skipTotal: true }
   );
 
   const handleCreate = () => {
-    navigate("/create-model");
+    navigate('/create-model');
   };
 
   useEffect(() => {
     const fetchTotalModels = async () => {
-      const { data, error } = await restService.get("/data/models?count");
+      const { data, error } = await restService.get('/data/models?count');
 
       if (!error) {
         setTotalModels(data);
@@ -37,7 +37,7 @@ const HomePage = () => {
 
     const fetchNumberOfCreators = async () => {
       const params = new URLSearchParams({
-        distinct: "_ownerId",
+        distinct: '_ownerId',
       });
 
       const { data, error } = await restService.get(
